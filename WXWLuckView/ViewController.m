@@ -54,17 +54,17 @@
  *@param count 返回结果数组的下标
  */
 - (void)luckViewDidStopWithArrayCount:(NSInteger)count {
-    NSLog(@"抽到了第%ld个",count);
+    NSLog(@"抽到了第%ld个",(long)count);
 }
     
     
 /**
  * 点击了数组中的第几个元素
  *
- * @param button
+ * @param button 点击了第几个奖品
  */
 - (void)luckSelectBtn:(UIButton *)button {
-    NSLog(@"点击了数组中的第%ld个元素",button.tag);
+    NSLog(@"点击了数组中的第%ld个元素",(long)button.tag);
     
 }
 
