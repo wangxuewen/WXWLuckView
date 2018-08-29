@@ -7,8 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "WXWLuckView.h"
 
-@interface ViewController ()
+#define ScreenWidth ([UIScreen mainScreen].bounds.size.width)
+#define ScreenHeight ([UIScreen mainScreen].bounds.size.height)
+
+
+@interface ViewController ()<LuckViewDelegate>
 
 @end
 
@@ -17,6 +22,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self loadLuckView];
+}
+    
+- (void)loadLuckView {
+    WXWLuckView *luckView = [[WXWLuckView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenWidth)];
+    luckView.center = self.view.center;
+    
+    //网络图片地址
+    luckView.urlImageArray = [@[@"http://oquujevnh.bkt.clouddn.com/first.jpg",
+                             @"http://oquujevnh.bkt.clouddn.com/second.jpg",
+                             @"http://oquujevnh.bkt.clouddn.com/third.jpg",
+                             @"http://oquujevnh.bkt.clouddn.com/fourth.jpg",
+                             @"http://oquujevnh.bkt.clouddn.com/fifth.jpg",
+                             @"http://oquujevnh.bkt.clouddn.com/sixth.jpg",
+                             @"http://oquujevnh.bkt.clouddn.com/seventh.jpg",
+                             @"http://oquujevnh.bkt.clouddn.com/eighth.jpg"]mutableCopy];
+    //指定抽奖结果,对应数组中的元素
+    luckView.stopCount = 5;
+    //设置代理
+    luckView.delegate = self;
+    [self.view addSubview:luckView];
+}
+   
+    
+
+#pragma mark - LuckViewDelegate
+/**
+ * 中奖
+ *
+ *@param count 返回结果数组的下标
+ */
+- (void)luckViewDidStopWithArrayCount:(NSInteger)count {
+    NSLog(@"抽到了第%ld个",count);
+}
+    
+    
+/**
+ * 点击了数组中的第几个元素
+ *
+ * @param button
+ */
+- (void)luckSelectBtn:(UIButton *)button {
+    NSLog(@"点击了数组中的第%ld个元素",button.tag);
+    
 }
 
 

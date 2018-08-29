@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34CD1238D3D0A847701677E9 /* libPods-WXWLuckView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */; };
 		84781C9E21364ECD00EF8A6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781C9D21364ECD00EF8A6A /* AppDelegate.m */; };
 		84781CA121364ECD00EF8A6A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CA021364ECD00EF8A6A /* ViewController.m */; };
 		84781CA421364ECD00EF8A6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84781CA221364ECD00EF8A6A /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 		84781CAC21364ED000EF8A6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CAB21364ED000EF8A6A /* main.m */; };
 		84781CB621364ED100EF8A6A /* WXWLuckViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CB521364ED100EF8A6A /* WXWLuckViewTests.m */; };
 		84781CC121364ED100EF8A6A /* WXWLuckViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CC021364ED100EF8A6A /* WXWLuckViewUITests.m */; };
+		84781CCF21364F2F00EF8A6A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 84781CCE21364F2F00EF8A6A /* Podfile */; };
+		84781CD3213650B700EF8A6A /* WXWLuckView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CD2213650B700EF8A6A /* WXWLuckView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0EA5E5F8B4713A6ACEF76599 /* Pods-WXWLuckView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WXWLuckView.release.xcconfig"; path = "Pods/Target Support Files/Pods-WXWLuckView/Pods-WXWLuckView.release.xcconfig"; sourceTree = "<group>"; };
+		1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WXWLuckView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84781C9921364ECD00EF8A6A /* WXWLuckView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXWLuckView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84781C9C21364ECD00EF8A6A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84781C9D21364ECD00EF8A6A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +56,10 @@
 		84781CBC21364ED100EF8A6A /* WXWLuckViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WXWLuckViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84781CC021364ED100EF8A6A /* WXWLuckViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXWLuckViewUITests.m; sourceTree = "<group>"; };
 		84781CC221364ED100EF8A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84781CCE21364F2F00EF8A6A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		84781CD1213650B700EF8A6A /* WXWLuckView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXWLuckView.h; sourceTree = "<group>"; };
+		84781CD2213650B700EF8A6A /* WXWLuckView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXWLuckView.m; sourceTree = "<group>"; };
+		89612CE8E310A48C8911934A /* Pods-WXWLuckView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WXWLuckView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WXWLuckView/Pods-WXWLuckView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34CD1238D3D0A847701677E9 /* libPods-WXWLuckView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +95,8 @@
 				84781CB421364ED100EF8A6A /* WXWLuckViewTests */,
 				84781CBF21364ED100EF8A6A /* WXWLuckViewUITests */,
 				84781C9A21364ECD00EF8A6A /* Products */,
+				B1E358AE746EBAD421A1AE6D /* Pods */,
+				D6DD562023B469AE650626E0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +113,7 @@
 		84781C9B21364ECD00EF8A6A /* WXWLuckView */ = {
 			isa = PBXGroup;
 			children = (
+				84781CD02136506B00EF8A6A /* WXWLuckView */,
 				84781C9C21364ECD00EF8A6A /* AppDelegate.h */,
 				84781C9D21364ECD00EF8A6A /* AppDelegate.m */,
 				84781C9F21364ECD00EF8A6A /* ViewController.h */,
@@ -110,6 +123,7 @@
 				84781CA721364ED000EF8A6A /* LaunchScreen.storyboard */,
 				84781CAA21364ED000EF8A6A /* Info.plist */,
 				84781CAB21364ED000EF8A6A /* main.m */,
+				84781CCE21364F2F00EF8A6A /* Podfile */,
 			);
 			path = WXWLuckView;
 			sourceTree = "<group>";
@@ -132,6 +146,32 @@
 			path = WXWLuckViewUITests;
 			sourceTree = "<group>";
 		};
+		84781CD02136506B00EF8A6A /* WXWLuckView */ = {
+			isa = PBXGroup;
+			children = (
+				84781CD1213650B700EF8A6A /* WXWLuckView.h */,
+				84781CD2213650B700EF8A6A /* WXWLuckView.m */,
+			);
+			path = WXWLuckView;
+			sourceTree = "<group>";
+		};
+		B1E358AE746EBAD421A1AE6D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89612CE8E310A48C8911934A /* Pods-WXWLuckView.debug.xcconfig */,
+				0EA5E5F8B4713A6ACEF76599 /* Pods-WXWLuckView.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D6DD562023B469AE650626E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,6 +179,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84781CC521364ED100EF8A6A /* Build configuration list for PBXNativeTarget "WXWLuckView" */;
 			buildPhases = (
+				9AB37E8E4C8B6ADD4F62284A /* [CP] Check Pods Manifest.lock */,
 				84781C9521364ECD00EF8A6A /* Sources */,
 				84781C9621364ECD00EF8A6A /* Frameworks */,
 				84781C9721364ECD00EF8A6A /* Resources */,
@@ -237,6 +278,7 @@
 			files = (
 				84781CA921364ED000EF8A6A /* LaunchScreen.storyboard in Resources */,
 				84781CA621364ED000EF8A6A /* Assets.xcassets in Resources */,
+				84781CCF21364F2F00EF8A6A /* Podfile in Resources */,
 				84781CA421364ECD00EF8A6A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,11 +299,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9AB37E8E4C8B6ADD4F62284A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WXWLuckView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84781C9521364ECD00EF8A6A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84781CD3213650B700EF8A6A /* WXWLuckView.m in Sources */,
 				84781CA121364ECD00EF8A6A /* ViewController.m in Sources */,
 				84781CAC21364ED000EF8A6A /* main.m in Sources */,
 				84781C9E21364ECD00EF8A6A /* AppDelegate.m in Sources */,
@@ -431,11 +495,13 @@
 		};
 		84781CC621364ED100EF8A6A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89612CE8E310A48C8911934A /* Pods-WXWLuckView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q7AEAPEXBN;
 				INFOPLIST_FILE = WXWLuckView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -443,16 +509,19 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sky.cocoapodTest.WXWLuckView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
 		};
 		84781CC721364ED100EF8A6A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EA5E5F8B4713A6ACEF76599 /* Pods-WXWLuckView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q7AEAPEXBN;
 				INFOPLIST_FILE = WXWLuckView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -460,6 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sky.cocoapodTest.WXWLuckView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;
 		};
