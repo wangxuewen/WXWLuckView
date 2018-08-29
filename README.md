@@ -1,2 +1,3 @@
 # WXWLuckView
-九宫格抽奖demo
+
+pod 'WXWLuckView', '~> 0.0.1'
