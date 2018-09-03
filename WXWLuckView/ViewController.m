@@ -40,6 +40,7 @@
                              @"http://oquujevnh.bkt.clouddn.com/eighth.jpg"]mutableCopy];
     //指定抽奖结果,对应数组中的元素
     luckView.stopCount = 5;
+//    luckView.borderColor = [UIColor grayColor];
     //设置代理
     luckView.delegate = self;
     [self.view addSubview:luckView];
@@ -53,8 +54,13 @@
  *
  *@param count 返回结果数组的下标
  */
-- (void)luckViewDidStopWithArrayCount:(NSInteger)count {
+- (void)luckView:(UIView *)luckView didStopWithArrayCount:(NSInteger)count{
     NSLog(@"抽到了第%ld个",(long)count);
+    WXWLuckView *luck = (WXWLuckView *)luckView;
+    [luck showLotteryResults:^{
+        NSLog(@"点击确认");
+    }];
+
 }
     
     
