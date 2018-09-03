@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WXWLuckView"
-  s.version      = "0.1.1"
+  s.version      = "0.1.2"
   s.summary      = "幸运转盘demo"
 
   # This description is used to generate tags and improve search results.
@@ -89,7 +89,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "WXWLuckView", "WXWLuckView/**/*.{h,m}"
+  s.source_files  = "WXWLuckView/WXWLuckView", "WXWLuckView/WXWLuckView/**/*.{h,m}"
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
