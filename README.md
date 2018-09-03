@@ -1,3 +1,3 @@
 # WXWLuckView
 
-pod 'WXWLuckView', '~> 0.1.1'
+pod 'WXWLuckView', '~> 0.1.3'
