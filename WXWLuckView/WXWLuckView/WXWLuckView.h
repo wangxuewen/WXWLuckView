@@ -24,7 +24,7 @@
 @interface WXWLuckView : UIView
 
 /**
- *  图片地址，网络获取
+ * 图片地址，网络获取
  */
 @property (strong, nonatomic) NSMutableArray *urlImageArray;
 /**

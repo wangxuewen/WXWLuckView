@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.view.backgroundColor = [UIColor grayColor];
     [self loadLuckView];
 }
     
@@ -30,14 +31,23 @@
     luckView.center = self.view.center;
     
     //网络图片地址
-    luckView.urlImageArray = [@[@"http://oquujevnh.bkt.clouddn.com/first.jpg",
-                             @"http://oquujevnh.bkt.clouddn.com/second.jpg",
-                             @"http://oquujevnh.bkt.clouddn.com/third.jpg",
-                             @"http://oquujevnh.bkt.clouddn.com/fourth.jpg",
-                             @"http://oquujevnh.bkt.clouddn.com/fifth.jpg",
-                             @"http://oquujevnh.bkt.clouddn.com/sixth.jpg",
-                             @"http://oquujevnh.bkt.clouddn.com/seventh.jpg",
-                             @"http://oquujevnh.bkt.clouddn.com/eighth.jpg"]mutableCopy];
+//    luckView.urlImageArray = [@[@"http://oquujevnh.bkt.clouddn.com/first.jpg",
+//                             @"http://oquujevnh.bkt.clouddn.com/second.jpg",
+//                             @"http://oquujevnh.bkt.clouddn.com/third.jpg",
+//                             @"http://oquujevnh.bkt.clouddn.com/fourth.jpg",
+//                             @"http://oquujevnh.bkt.clouddn.com/fifth.jpg",
+//                             @"http://oquujevnh.bkt.clouddn.com/sixth.jpg",
+//                             @"http://oquujevnh.bkt.clouddn.com/seventh.jpg",
+//                             @"http://oquujevnh.bkt.clouddn.com/eighth.jpg"]mutableCopy];
+    
+    luckView.localImageArray = [@[@"first",
+                                  @"second",
+                                  @"third",
+                                  @"fourth",
+                                  @"fifth",
+                                  @"sixth",
+                                  @"seventh",
+                                  @"eighth"] mutableCopy];
     //指定抽奖结果,对应数组中的元素
     luckView.stopCount = 5;
 //    luckView.borderColor = [UIColor grayColor];
