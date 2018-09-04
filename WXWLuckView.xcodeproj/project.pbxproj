@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34CD1238D3D0A847701677E9 /* libPods-WXWLuckView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */; };
+		846FA2EF213E5A7B001B2654 /* 九宫格.gif in Resources */ = {isa = PBXBuildFile; fileRef = 846FA2EE213E5A7B001B2654 /* 九宫格.gif */; };
 		84781C9E21364ECD00EF8A6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781C9D21364ECD00EF8A6A /* AppDelegate.m */; };
 		84781CA121364ECD00EF8A6A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CA021364ECD00EF8A6A /* ViewController.m */; };
 		84781CA421364ECD00EF8A6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84781CA221364ECD00EF8A6A /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		0EA5E5F8B4713A6ACEF76599 /* Pods-WXWLuckView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WXWLuckView.release.xcconfig"; path = "Pods/Target Support Files/Pods-WXWLuckView/Pods-WXWLuckView.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WXWLuckView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		846FA2EE213E5A7B001B2654 /* 九宫格.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "九宫格.gif"; sourceTree = "<group>"; };
 		84781C9921364ECD00EF8A6A /* WXWLuckView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXWLuckView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84781C9C21364ECD00EF8A6A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84781C9D21364ECD00EF8A6A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		846FA2ED213E5A7B001B2654 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				846FA2EE213E5A7B001B2654 /* 九宫格.gif */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		84781C9021364ECD00EF8A6A = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +123,7 @@
 		84781C9B21364ECD00EF8A6A /* WXWLuckView */ = {
 			isa = PBXGroup;
 			children = (
+				846FA2ED213E5A7B001B2654 /* Resource */,
 				84781CD02136506B00EF8A6A /* WXWLuckView */,
 				84781C9C21364ECD00EF8A6A /* AppDelegate.h */,
 				84781C9D21364ECD00EF8A6A /* AppDelegate.m */,
@@ -279,6 +290,7 @@
 				84781CA921364ED000EF8A6A /* LaunchScreen.storyboard in Resources */,
 				84781CA621364ED000EF8A6A /* Assets.xcassets in Resources */,
 				84781CCF21364F2F00EF8A6A /* Podfile in Resources */,
+				846FA2EF213E5A7B001B2654 /* 九宫格.gif in Resources */,
 				84781CA421364ECD00EF8A6A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
