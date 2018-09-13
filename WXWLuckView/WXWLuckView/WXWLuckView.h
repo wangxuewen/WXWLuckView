@@ -38,11 +38,6 @@
 
 @property (assign, nonatomic) id<LuckViewDelegate> delegate;
 /**
- * 奖项边框颜色，不设置默认无边框
- */
-@property (strong, nonatomic) UIColor *borderColor;
-
-/**
  *抽奖结果提示
  */
 - (void)showLotteryResults:(void(^)(void))clickSure;

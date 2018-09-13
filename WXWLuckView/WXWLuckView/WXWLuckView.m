@@ -7,8 +7,11 @@
 //
 
 #import "WXWLuckView.h"
-
 #import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
 @interface WXWLuckView () {
     NSTimer *imageTimer;
@@ -28,7 +31,8 @@
     UIButton *btn0;
 }
     
-@property (strong , nonatomic) UIImageView *backgroundImageView;
+@property (strong, nonatomic) UIImageView *backgroundImageView;
+@property (strong, nonatomic) UIImageView *borderImageView;
 @property (assign, nonatomic) BOOL isImage;
 @property (strong, nonatomic) NSMutableArray * btnArray;
 @property (strong, nonatomic) UIButton * startBtn;
@@ -53,12 +57,20 @@
         self.time = 0.1;
         _stopCount = 8; //默认为8
         stopTime = 79 + self.stopCount; //默认多转10圈（10*8-1=79）
-        self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        self.backgroundImageView.image = [UIImage imageNamed:@"cjbj01"];
+        self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        self.backgroundImageView.userInteractionEnabled = YES;
+        self.backgroundImageView.contentMode = UIViewContentModeScaleToFill;
+        self.backgroundImageView.image = [UIImage imageNamed:@"v1.2.1_背景"];
         [self addSubview:self.backgroundImageView];
+        
+        self.borderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT / 3, SCREEN_WIDTH - 40, (SCREEN_WIDTH - 40) * 19 / 16)];
+        self.borderImageView.image = [UIImage imageNamed:@"v1.2.1_框"];
+        self.borderImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.backgroundImageView addSubview:self.borderImageView];
+        
         self.backgroundColor = [UIColor clearColor];
         
-        imageTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(updataImage:) userInfo:nil repeats:YES];
+//        imageTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(updataImage:) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -69,7 +81,7 @@
     if (self.isImage == YES) {
         self.backgroundImageView.image = [UIImage imageNamed:@"cjbj02"];
     } else {
-        self.backgroundImageView.image = [UIImage imageNamed:@"cjbj01"];
+        self.backgroundImageView.image = [UIImage imageNamed:@"v1.2.1_框"];
     }
 }
     
@@ -99,41 +111,37 @@
 
 - (void)initLuckViewSubViews {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([[self.backgroundImageView subviews] count]) {
-            [self.backgroundImageView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        if ([[self.borderImageView subviews] count]) {
+            [self.borderImageView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         }
     });
     dispatch_async(dispatch_get_main_queue(), ^{
-        CGFloat topMarge = 15; //button距离顶部边距
-        CGFloat leftMarge = 20; //button距离左边距
-        CGFloat btnSpace = 0; //button之间的距离
-        CGFloat imageW = 10; //button比较imageView的宽度差（边框的2倍）
-        CGFloat btnw = (self.frame.size.width - imageW * 2 - leftMarge * 2 - btnSpace * 2)/3;
-        CGFloat margeW = 5; // imageView与button的边框宽度
+        CGFloat topMarge = (SCREEN_WIDTH - 40) * 3 / 28 + 3; //button距离顶部边距, 2为btn到黑边框距离
+        CGFloat leftMarge = (SCREEN_WIDTH - 40) / 7 + 2; //button距离左边距, 2为btn到黑边框距离
+        CGFloat btnSpace = 1.5f; //button之间的距离
+        CGFloat btnw = (SCREEN_WIDTH - 20 * 2 - leftMarge * 2 - btnSpace * 2)/3;
+        CGFloat margeW = 0; // imageView与button的边框宽度
         
         NSArray *prizeImageArr = self.localImageArray ? : self.urlImageArray;
         
         for (int i = 0; i < prizeImageArr.count + 1; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
-            shapeLayer.fillColor = [UIColor clearColor].CGColor;
-            [btn.layer addSublayer:shapeLayer];
-            
-            CGFloat x = leftMarge + btnSpace * (i % 3) + (i % 3) * btnw + imageW;
-            CGFloat y = topMarge + btnSpace * (i / 3) + (i / 3) * btnw + imageW;
+            [btn setImageEdgeInsets:UIEdgeInsetsMake(margeW, margeW, margeW, margeW)];
+
+            CGFloat x = leftMarge + btnSpace * (i % 3) + (i % 3) * btnw;
+            CGFloat y = topMarge + btnSpace * (i / 3) + (i / 3) * btnw;
             CGFloat width = btnw;
             CGFloat height = btnw;
             btn.frame = CGRectMake(x, y, width, height);
-            btn.backgroundColor = [UIColor clearColor];
-            btn.layer.cornerRadius = 5;
+//            btn.backgroundColor = [UIColor whiteColor];
+            [btn setImage:[UIImage imageNamed:@"v1.2.1_抽奖高亮"] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-            self.backgroundImageView.userInteractionEnabled = YES;
-            [self.backgroundImageView addSubview:btn];
+            self.borderImageView.userInteractionEnabled = YES;
+            [self.borderImageView addSubview:btn];
             
             if (i == 4) {
                 [btn setTitle:@"" forState:UIControlStateNormal];
-                btn.frame = CGRectMake(btn.frame.origin.x + 5, btn.frame.origin.y + 5, btn.frame.size.width - 10, btn.frame.size.height - 10);
-                [btn setBackgroundImage:[UIImage imageNamed:@"sub"] forState:UIControlStateNormal];
+                [btn setImage:[UIImage imageNamed:@"v1.2.1_抽奖按钮"] forState:UIControlStateNormal];
                 btn.tag = 10;
                 self.startBtn = btn;
                 
@@ -141,15 +149,12 @@
             }
             
             btn.tag = i > 4? i -1: i;
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(margeW, margeW, btn.frame.size.width - margeW * 2, btn.frame.size.width - margeW * 2)];
-            imageView.backgroundColor = [UIColor grayColor];
-            [btn addSubview:imageView];
-            if (self.localImageArray) {
-                [imageView setImage:[UIImage imageNamed:[prizeImageArr objectAtIndex:i > 4? i -1: i]]];
+            if (self.urlImageArray) {
+                [btn sd_setBackgroundImageWithURL:[NSURL URLWithString:[prizeImageArr objectAtIndex:i > 4? i -1: i]] forState:UIControlStateNormal];
             } else {
-                [imageView sd_setImageWithURL:[prizeImageArr objectAtIndex:i > 4? i -1: i] placeholderImage:[UIImage imageNamed:@"cjbj02"]];
+                [btn setBackgroundImage:[UIImage imageNamed:[prizeImageArr objectAtIndex:i > 4? i -1: i]] forState:UIControlStateNormal];
             }
-            
+        
             switch (i) {
                 case 0:
                     self->btn0 = btn;
@@ -197,7 +202,6 @@
         currentTime = result;
         self.time = 0.1;
         [self.startBtn setEnabled:NO];
-        [self.startBtn setBackgroundImage:[UIImage imageNamed:@"subo"] forState:UIControlStateNormal];
 
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             self->startTimer = [NSTimer scheduledTimerWithTimeInterval:self.time target:self selector:@selector(start:) userInfo:nil repeats:YES];
@@ -215,20 +219,14 @@
     currentTime++;
     UIButton *btn = [self.btnArray objectAtIndex:currentTime % self.btnArray.count];
     dispatch_async(dispatch_get_main_queue(), ^{
-        oldBtn.backgroundColor = [UIColor clearColor];
-        oldBtn.layer.opacity = 1;
-        if(self.borderColor) {
-            btn.layer.backgroundColor = self.borderColor.CGColor;
-        } else {
-            btn.layer.opacity = 0.3;
-        }
+        oldBtn.selected = NO;
+        btn.selected = YES;
     });
 
     if (currentTime > stopTime) {
         [timer invalidate];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.startBtn setEnabled:YES];
-            [self.startBtn setImage:[UIImage imageNamed:@"sub"] forState:UIControlStateNormal];
         });
         result = currentTime%self.btnArray.count;
         [self stopWithCount:currentTime%self.btnArray.count];

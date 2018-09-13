@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34CD1238D3D0A847701677E9 /* libPods-WXWLuckView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */; };
+		8409CA3D214A55970030D74E /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8409CA3C214A55970030D74E /* TestViewController.m */; };
 		846FA2EF213E5A7B001B2654 /* 九宫格.gif in Resources */ = {isa = PBXBuildFile; fileRef = 846FA2EE213E5A7B001B2654 /* 九宫格.gif */; };
 		84781C9E21364ECD00EF8A6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781C9D21364ECD00EF8A6A /* AppDelegate.m */; };
 		84781CA121364ECD00EF8A6A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CA021364ECD00EF8A6A /* ViewController.m */; };
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		0EA5E5F8B4713A6ACEF76599 /* Pods-WXWLuckView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WXWLuckView.release.xcconfig"; path = "Pods/Target Support Files/Pods-WXWLuckView/Pods-WXWLuckView.release.xcconfig"; sourceTree = "<group>"; };
 		1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WXWLuckView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8409CA3B214A55970030D74E /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		8409CA3C214A55970030D74E /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		846FA2EE213E5A7B001B2654 /* 九宫格.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "九宫格.gif"; sourceTree = "<group>"; };
 		84781C9921364ECD00EF8A6A /* WXWLuckView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXWLuckView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84781C9C21364ECD00EF8A6A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 				84781C9D21364ECD00EF8A6A /* AppDelegate.m */,
 				84781C9F21364ECD00EF8A6A /* ViewController.h */,
 				84781CA021364ECD00EF8A6A /* ViewController.m */,
+				8409CA3B214A55970030D74E /* TestViewController.h */,
+				8409CA3C214A55970030D74E /* TestViewController.m */,
 				84781CA221364ECD00EF8A6A /* Main.storyboard */,
 				84781CA521364ED000EF8A6A /* Assets.xcassets */,
 				84781CA721364ED000EF8A6A /* LaunchScreen.storyboard */,
@@ -341,6 +346,7 @@
 				84781CA121364ECD00EF8A6A /* ViewController.m in Sources */,
 				84781CAC21364ED000EF8A6A /* main.m in Sources */,
 				84781C9E21364ECD00EF8A6A /* AppDelegate.m in Sources */,
+				8409CA3D214A55970030D74E /* TestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
