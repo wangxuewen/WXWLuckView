@@ -63,7 +63,6 @@
 
         currentTime = 0;
         self.isImage = YES;
-//        self.TimeoutFlag = NO;
         self.time = 0.1;
         _stopCount = 7; //默认为7
         self.lotteryNumber = 1; //默认次数为1
@@ -105,7 +104,8 @@
     return self;
 }
     
-    
+
+//背景图切换
 - (void)updataImage:(NSTimer *)timer {
     self.isImage = !self.isImage;
     if (self.isImage == YES) {

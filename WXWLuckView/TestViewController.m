@@ -29,12 +29,12 @@
 //    }
     
     
-    [self loadLuckView];
+    [self settingLuckView];
 
 }
 
 
-- (void)loadLuckView {
+- (void)settingLuckView {
     WXWLuckView *luckView = [[WXWLuckView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     luckView.center = self.view.center;
     
@@ -47,7 +47,7 @@
     //                             @"http://oquujevnh.bkt.clouddn.com/sixth.jpg",
     //                             @"http://oquujevnh.bkt.clouddn.com/seventh.jpg",
     //                             @"http://oquujevnh.bkt.clouddn.com/eighth.jpg"]mutableCopy];
-    
+    //本地图片
     luckView.localImageArray = [@[@"v1.2.1_1天",
                                   @"v1.2.1_5天",
                                   @"v1.2.1_7天",
@@ -56,6 +56,7 @@
                                   @"v1.2.1_年卡",
                                   @"v1.2.1_永久",
                                   @"v1.2.1_大吉大利"] mutableCopy];
+    //抽奖结果提示信息
     luckView.lotteryArray = @[@"加速器 1天",
                               @"加速器 5天",
                               @"加速器 7天",
