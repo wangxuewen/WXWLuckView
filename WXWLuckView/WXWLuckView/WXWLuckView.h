@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "WXWLuckView.h"
 
+typedef void(^aaa)(NSInteger a);
+
 @protocol LuckViewDelegate <NSObject>
 /**
  * 奖项停止的位置
@@ -38,9 +40,22 @@
 
 @property (assign, nonatomic) id<LuckViewDelegate> delegate;
 /**
+ * 抽奖次数
+ */
+@property (assign, nonatomic) int lotteryNumber;
+/**
+ * 抽奖次数背景色
+ */
+@property (strong, nonatomic) UIColor *lotteryBgColor;
+/**
+ * 奖品, 抽奖完成后提示信息
+ */
+@property (copy, nonatomic) NSArray *lotteryArray;
+
+/**
  *抽奖结果提示
  */
-- (void)showLotteryResults:(void(^)(void))clickSure;
+- (void)showLotteryResults:(void(^)(NSInteger remainTime))clickSure;
 
 
 @end

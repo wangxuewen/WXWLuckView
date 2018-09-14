@@ -13,6 +13,9 @@
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
+#define kDevice_Is_iPhoneX [UIScreen mainScreen].bounds.size.height == 812
+#define nav_height (kDevice_Is_iPhoneX?88:64)
+
 @interface WXWLuckView () {
     NSTimer *imageTimer;
     NSTimer *startTimer;
@@ -38,6 +41,10 @@
 @property (strong, nonatomic) UIButton * startBtn;
 @property (assign, nonatomic) CGFloat time;
 
+@property (strong, nonatomic) UIButton *backButton;
+@property (strong, nonatomic) UILabel *lotteryNumberLabel;
+@property (assign, nonatomic) BOOL TimeoutFlag;
+
 @end
 
 @implementation WXWLuckView
@@ -52,25 +59,48 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
+
         currentTime = 0;
         self.isImage = YES;
+//        self.TimeoutFlag = NO;
         self.time = 0.1;
-        _stopCount = 8; //默认为8
+        _stopCount = 7; //默认为7
+        self.lotteryNumber = 1; //默认次数为1
         stopTime = 79 + self.stopCount; //默认多转10圈（10*8-1=79）
+        self.lotteryBgColor = [UIColor grayColor];
+        
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         self.backgroundImageView.userInteractionEnabled = YES;
         self.backgroundImageView.contentMode = UIViewContentModeScaleToFill;
-        self.backgroundImageView.image = [UIImage imageNamed:@"v1.2.1_背景"];
+        self.backgroundImageView.image = [UIImage imageNamed:@"v1.2.1_全面屏背景"];
         [self addSubview:self.backgroundImageView];
+        
+        self.backButton.frame = CGRectMake(SCREEN_WIDTH - 5 - 40, nav_height - 20 -40, 40, 40);
+        [self.backButton setImageEdgeInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+        [self.backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.backButton];
+        [self bringSubviewToFront:self.backButton];
         
         self.borderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT / 3, SCREEN_WIDTH - 40, (SCREEN_WIDTH - 40) * 19 / 16)];
         self.borderImageView.image = [UIImage imageNamed:@"v1.2.1_框"];
         self.borderImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.backgroundImageView addSubview:self.borderImageView];
         
-        self.backgroundColor = [UIColor clearColor];
+        CGFloat margeLeft = (SCREEN_WIDTH - 40) / 7;
+        self.lotteryNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.backgroundImageView addSubview:self.lotteryNumberLabel];
+        [self.backgroundImageView bringSubviewToFront:self.lotteryNumberLabel];
         
-//        imageTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(updataImage:) userInfo:nil repeats:YES];
+        NSMutableArray *constraints = [NSMutableArray array];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeHeight multiplier:0.059 constant:0.0]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:margeLeft]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-50]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margeLeft]];
+        [self.backgroundImageView addConstraints:constraints];
+    
+        
+        imageTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(updataImage:) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -79,12 +109,14 @@
 - (void)updataImage:(NSTimer *)timer {
     self.isImage = !self.isImage;
     if (self.isImage == YES) {
-        self.backgroundImageView.image = [UIImage imageNamed:@"cjbj02"];
+        self.borderImageView.image = [UIImage imageNamed:@"v1.2.1_框1"];
     } else {
-        self.backgroundImageView.image = [UIImage imageNamed:@"v1.2.1_框"];
+        self.borderImageView.image = [UIImage imageNamed:@"v1.2.1_框"];
     }
 }
-    
+
+
+#pragma mark -Setter
 - (void)setStopCount:(int)stopCount {
     if(_stopCount != stopCount) {
         _stopCount = stopCount;
@@ -107,6 +139,29 @@
     _localImageArray = nil;
     _urlImageArray = urlImageArray;
     [self initLuckViewSubViews];
+}
+
+
+- (void)setLotteryNumber:(int)lotteryNumber {
+    if (_lotteryNumber != lotteryNumber) {
+        _lotteryNumber = lotteryNumber;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.lotteryNumberLabel.text = [NSString stringWithFormat:@"当前剩余抽奖次数:%d次",  self.lotteryNumber];
+        });
+    }
+}
+
+- (void)setLotteryBgColor:(UIColor *)lotteryBgColor {
+    if (_lotteryBgColor != lotteryBgColor) {
+        _lotteryBgColor = lotteryBgColor;
+        _lotteryNumberLabel.backgroundColor = lotteryBgColor;
+    }
+}
+
+- (void)setLotteryArray:(NSArray *)lotteryArray {
+    if (_lotteryArray != lotteryArray) {
+        _lotteryArray = [lotteryArray copy];
+    }
 }
 
 - (void)initLuckViewSubViews {
@@ -133,7 +188,6 @@
             CGFloat width = btnw;
             CGFloat height = btnw;
             btn.frame = CGRectMake(x, y, width, height);
-//            btn.backgroundColor = [UIColor whiteColor];
             [btn setImage:[UIImage imageNamed:@"v1.2.1_抽奖高亮"] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             self.borderImageView.userInteractionEnabled = YES;
@@ -202,7 +256,8 @@
         currentTime = result;
         self.time = 0.1;
         [self.startBtn setEnabled:NO];
-
+        [self.backButton setEnabled:NO];
+        
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             self->startTimer = [NSTimer scheduledTimerWithTimeInterval:self.time target:self selector:@selector(start:) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] run];
@@ -223,10 +278,12 @@
         btn.selected = YES;
     });
 
-    if (currentTime > stopTime) {
+    if (currentTime > stopTime) { //抽奖结果
+        self.TimeoutFlag = (stopTime == 79 + self.stopCount) ? YES : NO;
         [timer invalidate];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.startBtn setEnabled:YES];
+            [self.backButton setEnabled:YES];
         });
         result = currentTime%self.btnArray.count;
         [self stopWithCount:currentTime%self.btnArray.count];
@@ -246,26 +303,34 @@
 }
     
     
-- (void)stopWithCount:(NSInteger)count {    
+- (void)stopWithCount:(NSInteger)count {
     if ([self.delegate respondsToSelector:@selector(luckView:didStopWithArrayCount:)]) {
-        [self.delegate luckView:self didStopWithArrayCount:count];
+        if (!self.TimeoutFlag) {
+            self.lotteryNumber = self.lotteryNumber - 1;
+        }
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0/*延迟执行时间*/ * NSEC_PER_SEC));
+        __weak typeof(self)weakSelf = self;
+        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+            [weakSelf.delegate luckView:self didStopWithArrayCount:count];
+        });
     }
 }
 
 
-- (void)showLotteryResults:(void (^)(void))clickSure {
+- (void)showLotteryResults:(void(^)(NSInteger remainTime))clickSure {
     NSString *title;
     NSString *message;
     NSString *sureTitle;
-    if (_stopCount == 8) {
+    if (_stopCount == 7) {
         title = @"提示";
-        message = [NSString stringWithFormat:@"%@", @"网络异常，请连接网络"];
-    } else if (_stopCount == 7) {
-        title = @"提示";
-        message = @"大吉大利，明天再来";
+        message = [NSString stringWithFormat:@"%@", self.TimeoutFlag ? @"网络异常，请连接网络" : @"大吉大利，明天再来"];
     } else {
         title = @"中奖了";
-        message = [NSString stringWithFormat:@"恭喜你获得了:“%@等奖”", [self translation:_stopCount]];
+        if (self.lotteryArray) {
+            message = [NSString stringWithFormat:@"恭喜你获得了:“%@”", _lotteryArray[_stopCount]];
+        } else {
+            message = [NSString stringWithFormat:@"恭喜你获得了:“%@等奖”", [self translation:_stopCount]];
+        }
     }
     sureTitle = @"确定";
     
@@ -274,13 +339,22 @@
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:sureTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [wAlert dismissViewControllerAnimated:NO completion:nil];
         if (clickSure) {
-            clickSure();
+            clickSure(self.lotteryNumber);
         }
     }];
     
     [alert addAction:sureAction];
     
     [[self viewController] presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark -method
+- (void)backAction {
+    if ([self viewController].presentingViewController) {
+        [[self viewController] dismissViewControllerAnimated:NO completion:nil];
+    } else {
+        [[self viewController].navigationController popViewControllerAnimated:NO];
+    }
 }
 
 - (UIViewController *)viewController {
@@ -291,6 +365,26 @@
         }
     }
     return nil;
+}
+
+- (UIButton *)backButton {
+    if (!_backButton) {
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_backButton setImage:[UIImage imageNamed:@"v1.2.1_关闭"] forState:UIControlStateNormal];
+    }
+    return _backButton;
+}
+
+-(UILabel *)lotteryNumberLabel {
+    if (!_lotteryNumberLabel) {
+        _lotteryNumberLabel = [[UILabel alloc] init];
+        _lotteryNumberLabel.font = [UIFont systemFontOfSize:15];
+        _lotteryNumberLabel.textAlignment = NSTextAlignmentCenter;
+        _lotteryNumberLabel.text = [NSString stringWithFormat:@"当前剩余抽奖次数:%d次",  self.lotteryNumber];
+        _lotteryNumberLabel.textColor = [UIColor whiteColor];
+        _lotteryNumberLabel.backgroundColor = self.lotteryBgColor;
+    }
+    return _lotteryNumberLabel;
 }
     
 - (void)TradePlacesWithBtn1:(UIButton *)firstBtn btn2:(UIButton *)secondBtn {

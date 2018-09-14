@@ -56,8 +56,18 @@
                                   @"v1.2.1_年卡",
                                   @"v1.2.1_永久",
                                   @"v1.2.1_大吉大利"] mutableCopy];
+    luckView.lotteryArray = @[@"加速器 1天",
+                              @"加速器 5天",
+                              @"加速器 7天",
+                              @"加速器 月卡",
+                              @"加速器 季卡",
+                              @"加速器 年卡",
+                              @"永久免费卡",
+                              @"大吉大利，明天再来",];
     //指定抽奖结果,对应数组中的元素
     luckView.stopCount = 5;
+    //设置抽奖次数
+    luckView.lotteryNumber = 5;
     //设置代理
     luckView.delegate = self;
     [self.view addSubview:luckView];
@@ -74,9 +84,13 @@
 - (void)luckView:(UIView *)luckView didStopWithArrayCount:(NSInteger)count{
     NSLog(@"抽到了第%ld个",(long)count);
     WXWLuckView *luck = (WXWLuckView *)luckView;
-    [luck showLotteryResults:^{
+    
+    __weak typeof(self)weakSelf = self;
+    [luck showLotteryResults:^(NSInteger remainTime) {
         NSLog(@"点击确认");
-        [self dismissViewControllerAnimated:NO completion:nil];
+        if (remainTime == 0) { //次数用完啦，少年赶快去充值吧
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+        }
     }];
     
 }
