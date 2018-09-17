@@ -67,7 +67,7 @@
                               @"大吉大利，明天再来",];
     //指定抽奖结果,对应数组中的元素
     luckView.stopCount = 8;
-    luckView.networkStatus = 0; //无网络
+//    luckView.networkStatus = 0; //无网络
     //设置抽奖次数
     luckView.lotteryNumber = 5;
     //设置代理

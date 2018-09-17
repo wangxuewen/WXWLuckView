@@ -6,5 +6,6 @@ target 'WXWLuckView' do
   # use_frameworks!
 
 pod 'SDWebImage'
+pod 'MLeaksFinder'
 
 end

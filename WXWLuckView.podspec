@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WXWLuckView"
-  s.version      = "0.1.8"
+  s.version      = "0.1.9"
   s.summary      = "幸运转盘demo"
 
   # This description is used to generate tags and improve search results.
@@ -132,6 +132,6 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
-  s.dependency "SDWebImage", "~> 4.4.2"
+  s.dependency "SDWebImage"
 
 end

@@ -9,6 +9,7 @@
 #import "WXWLuckView.h"
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
+#import "WXWTimer.h"
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
@@ -69,11 +70,10 @@
         stopTime = 79 + self.stopCount; //默认多转10圈（10*8-1=79）
         self.lotteryBgColor = [UIColor grayColor];
         self.failureMessage = @"网络异常，请连接网络";
+        self.networkStatus = NetworkStatusUnknown; //默认未知网络
         
-        self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        self.backgroundImageView.userInteractionEnabled = YES;
-        self.backgroundImageView.contentMode = UIViewContentModeScaleToFill;
-        self.backgroundImageView.image = [UIImage imageNamed:@"v1.2.1_全面屏背景"];
+        self.backgroundImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
         [self addSubview:self.backgroundImageView];
         
         self.backButton.frame = CGRectMake(SCREEN_WIDTH - 5 - 40, nav_height - 20 -40, 40, 40);
@@ -81,26 +81,25 @@
         [self.backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.backButton];
         [self bringSubviewToFront:self.backButton];
-        
+
         self.borderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT / 3, SCREEN_WIDTH - 40, (SCREEN_WIDTH - 40) * 19 / 16)];
         self.borderImageView.image = [UIImage imageNamed:@"v1.2.1_框"];
         self.borderImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.backgroundImageView addSubview:self.borderImageView];
-        
+
         CGFloat margeLeft = (SCREEN_WIDTH - 40) / 7;
         self.lotteryNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.backgroundImageView addSubview:self.lotteryNumberLabel];
         [self.backgroundImageView bringSubviewToFront:self.lotteryNumberLabel];
-        
+
         NSMutableArray *constraints = [NSMutableArray array];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeHeight multiplier:0.059 constant:0.0]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:margeLeft]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-50]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margeLeft]];
         [self.backgroundImageView addConstraints:constraints];
-    
-        
-        imageTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(updataImage:) userInfo:nil repeats:YES];
+
+        imageTimer = [WXWTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(updataImage:) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -119,7 +118,7 @@
 
 #pragma mark -Setter
 - (void)setNetworkStatus:(NetworkStatus)networkStatus {
-    if (_networkStatus == networkStatus) {
+    if (_networkStatus != networkStatus) {
         _networkStatus = networkStatus;
     }
 }
@@ -327,14 +326,14 @@
     
     
 - (void)stopWithCount:(NSInteger)count {
-    if ([self.delegate respondsToSelector:@selector(luckView:didStopWithArrayCount:)]) {
-        if (!self.TimeoutFlag) {
-            self.lotteryNumber = self.lotteryNumber - 1;
+    WXWLuckView *luckSelf = self;
+    if ([luckSelf.delegate respondsToSelector:@selector(luckView:didStopWithArrayCount:)]) {
+        if (!luckSelf.TimeoutFlag) {
+            luckSelf.lotteryNumber = luckSelf.lotteryNumber - 1;
         }
         dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0/*延迟执行时间*/ * NSEC_PER_SEC));
-        __weak typeof(self)weakSelf = self;
         dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-            [weakSelf.delegate luckView:self didStopWithArrayCount:count];
+            [luckSelf.delegate luckView:luckSelf didStopWithArrayCount:count];
         });
     }
 }
@@ -362,10 +361,11 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     __weak typeof(alert) wAlert = alert;
+    __weak typeof(self) wSelf = self;
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:sureTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [wAlert dismissViewControllerAnimated:NO completion:nil];
         if (clickSure) {
-            clickSure(self.lotteryNumber);
+            clickSure(wSelf.lotteryNumber);
         }
     }];
     
@@ -383,6 +383,7 @@
     }
 }
 
+#pragma mark - Getter
 - (UIViewController *)viewController {
     for (UIView* next = [self superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
@@ -391,6 +392,19 @@
         }
     }
     return nil;
+}
+
+- (UIImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] init];
+        _backgroundImageView.userInteractionEnabled = YES;
+        _backgroundImageView.contentMode = UIViewContentModeScaleToFill;
+//        _backgroundImageView.image = [UIImage imageNamed:@"v1.2.1_全面屏背景"];
+        NSString *path = [NSString stringWithFormat:@"%@@%@x", @"v1.2.1_全面屏背景", @([UIScreen mainScreen].scale)];
+        _backgroundImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:path ofType:@"png"]];
+
+    }
+    return _backgroundImageView;
 }
 
 - (UIButton *)backButton {
@@ -511,7 +525,9 @@
     
 - (void)dealloc {
     [imageTimer invalidate];
+    imageTimer = nil;
     [startTimer invalidate];
+    startTimer = nil;
 }
 
 @end

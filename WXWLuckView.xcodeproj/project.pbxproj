@@ -20,6 +20,10 @@
 		84781CC121364ED100EF8A6A /* WXWLuckViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CC021364ED100EF8A6A /* WXWLuckViewUITests.m */; };
 		84781CCF21364F2F00EF8A6A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 84781CCE21364F2F00EF8A6A /* Podfile */; };
 		84781CD3213650B700EF8A6A /* WXWLuckView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CD2213650B700EF8A6A /* WXWLuckView.m */; };
+		84DECDF4214F7BB000459A6A /* WXWTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DECDF3214F7BB000459A6A /* WXWTimer.m */; };
+		84DECDFB214F83FD00459A6A /* 抽奖.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84DECDFA214F83FD00459A6A /* 抽奖.gif */; };
+		84DECDFE214F8D9E00459A6A /* v1.2.1_全面屏背景@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DECDFC214F8D9E00459A6A /* v1.2.1_全面屏背景@3x.png */; };
+		84DECDFF214F8D9E00459A6A /* v1.2.1_全面屏背景@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DECDFD214F8D9E00459A6A /* v1.2.1_全面屏背景@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +68,11 @@
 		84781CCE21364F2F00EF8A6A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		84781CD1213650B700EF8A6A /* WXWLuckView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXWLuckView.h; sourceTree = "<group>"; };
 		84781CD2213650B700EF8A6A /* WXWLuckView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXWLuckView.m; sourceTree = "<group>"; };
+		84DECDF2214F7BB000459A6A /* WXWTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXWTimer.h; sourceTree = "<group>"; };
+		84DECDF3214F7BB000459A6A /* WXWTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXWTimer.m; sourceTree = "<group>"; };
+		84DECDFA214F83FD00459A6A /* 抽奖.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "抽奖.gif"; sourceTree = "<group>"; };
+		84DECDFC214F8D9E00459A6A /* v1.2.1_全面屏背景@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "v1.2.1_全面屏背景@3x.png"; sourceTree = "<group>"; };
+		84DECDFD214F8D9E00459A6A /* v1.2.1_全面屏背景@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "v1.2.1_全面屏背景@2x.png"; sourceTree = "<group>"; };
 		89612CE8E310A48C8911934A /* Pods-WXWLuckView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WXWLuckView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WXWLuckView/Pods-WXWLuckView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				846FA2EE213E5A7B001B2654 /* 九宫格.gif */,
+				84DECDFA214F83FD00459A6A /* 抽奖.gif */,
+				84DECDFD214F8D9E00459A6A /* v1.2.1_全面屏背景@2x.png */,
+				84DECDFC214F8D9E00459A6A /* v1.2.1_全面屏背景@3x.png */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -167,6 +179,8 @@
 			children = (
 				84781CD1213650B700EF8A6A /* WXWLuckView.h */,
 				84781CD2213650B700EF8A6A /* WXWLuckView.m */,
+				84DECDF2214F7BB000459A6A /* WXWTimer.h */,
+				84DECDF3214F7BB000459A6A /* WXWTimer.m */,
 			);
 			path = WXWLuckView;
 			sourceTree = "<group>";
@@ -293,10 +307,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				84781CA921364ED000EF8A6A /* LaunchScreen.storyboard in Resources */,
+				84DECDFF214F8D9E00459A6A /* v1.2.1_全面屏背景@2x.png in Resources */,
+				84DECDFB214F83FD00459A6A /* 抽奖.gif in Resources */,
 				84781CA621364ED000EF8A6A /* Assets.xcassets in Resources */,
 				84781CCF21364F2F00EF8A6A /* Podfile in Resources */,
 				846FA2EF213E5A7B001B2654 /* 九宫格.gif in Resources */,
 				84781CA421364ECD00EF8A6A /* Main.storyboard in Resources */,
+				84DECDFE214F8D9E00459A6A /* v1.2.1_全面屏背景@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DECDF4214F7BB000459A6A /* WXWTimer.m in Sources */,
 				84781CD3213650B700EF8A6A /* WXWLuckView.m in Sources */,
 				84781CA121364ECD00EF8A6A /* ViewController.m in Sources */,
 				84781CAC21364ED000EF8A6A /* main.m in Sources */,
