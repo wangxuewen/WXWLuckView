@@ -9,9 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "WXWLuckView.h"
 
-typedef void(^aaa)(NSInteger a);
+typedef NS_ENUM(NSInteger, NetworkStatus) {
+    NetworkStatusUnknown = -1, //未知网络
+    NetworkStatusNotReachable = 0, //无网络
+    NetworkStatusReachableViaWWAN = 1, //运营商网络
+    NetworkStatusReachableViaWiFi = 2, //无线网络
+
+};
 
 @protocol LuckViewDelegate <NSObject>
+/**
+ * 开始抽奖
+ */
+- (void)startDrawLottery;
+
 /**
  * 奖项停止的位置
  */
@@ -21,10 +32,14 @@ typedef void(^aaa)(NSInteger a);
  */
 - (void)luckSelectBtn:(UIButton *)button;
     
-    @end
+@end
 
 @interface WXWLuckView : UIView
 
+/**
+ * 网络状态，无网络直接提示相应信息
+ */
+@property (assign, nonatomic) NetworkStatus networkStatus;
 /**
  * 图片地址，网络获取
  */
@@ -51,7 +66,10 @@ typedef void(^aaa)(NSInteger a);
  * 奖品, 抽奖完成后提示信息
  */
 @property (copy, nonatomic) NSArray *lotteryArray;
-
+/**
+ * 抽奖失败后提示信息
+ */
+@property (copy, nonatomic) NSString *failureMessage;
 /**
  *抽奖结果提示
  */

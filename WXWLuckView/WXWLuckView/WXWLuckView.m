@@ -68,6 +68,7 @@
         self.lotteryNumber = 1; //默认次数为1
         stopTime = 79 + self.stopCount; //默认多转10圈（10*8-1=79）
         self.lotteryBgColor = [UIColor grayColor];
+        self.failureMessage = @"网络异常，请连接网络";
         
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         self.backgroundImageView.userInteractionEnabled = YES;
@@ -117,6 +118,12 @@
 
 
 #pragma mark -Setter
+- (void)setNetworkStatus:(NetworkStatus)networkStatus {
+    if (_networkStatus == networkStatus) {
+        _networkStatus = networkStatus;
+    }
+}
+
 - (void)setStopCount:(int)stopCount {
     if(_stopCount != stopCount) {
         _stopCount = stopCount;
@@ -161,6 +168,12 @@
 - (void)setLotteryArray:(NSArray *)lotteryArray {
     if (_lotteryArray != lotteryArray) {
         _lotteryArray = [lotteryArray copy];
+    }
+}
+
+- (void)setFailureMessage:(NSString *)failureMessage {
+    if (![_failureMessage isEqualToString:failureMessage]) {
+        _failureMessage = failureMessage;
     }
 }
 
@@ -251,6 +264,13 @@
 }
     
 - (void)btnClick:(UIButton *)btn {
+    if (_networkStatus == NetworkStatusNotReachable) {
+        self.stopCount = 8;
+        [self showLotteryResults:^(NSInteger remainTime) {
+            
+        }];
+        return;
+    }
     if (btn.tag == 10) {
         //点击开始抽奖
         currentTime = result;
@@ -262,6 +282,9 @@
             self->startTimer = [NSTimer scheduledTimerWithTimeInterval:self.time target:self selector:@selector(start:) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] run];
         });
+        if ([self.delegate respondsToSelector:@selector(startDrawLottery)]) {
+            [self.delegate startDrawLottery];
+        }
     } else {
         if ([self.delegate respondsToSelector:@selector(luckSelectBtn:)]) {
             [self.delegate luckSelectBtn:btn];
@@ -321,9 +344,12 @@
     NSString *title;
     NSString *message;
     NSString *sureTitle;
-    if (_stopCount == 7) {
+    if (_stopCount == 8) {
         title = @"提示";
-        message = [NSString stringWithFormat:@"%@", self.TimeoutFlag ? @"网络异常，请连接网络" : @"大吉大利，明天再来"];
+        message = self.failureMessage;
+    } else if (_stopCount == 7) {
+        title = @"提示";
+        message = [NSString stringWithFormat:@"%@", self.TimeoutFlag ? self.failureMessage : @"大吉大利，明天再来"];
     } else {
         title = @"中奖了";
         if (self.lotteryArray) {
