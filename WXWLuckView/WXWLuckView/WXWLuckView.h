@@ -52,6 +52,10 @@ typedef NS_ENUM(NSInteger, NetworkStatus) {
  * 停止位置，默认第一个
  */
 @property (assign, nonatomic) int stopCount;
+/**
+ * 超时时间,默认10秒（以网络请求的超时为主，超时间默认加2以上，用于选中之后的延时弹出提示框带来的影响）
+ */
+@property (assign, nonatomic) int timeoutInterval;
 
 @property (assign, nonatomic) id<LuckViewDelegate> delegate;
 /**

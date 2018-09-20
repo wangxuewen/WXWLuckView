@@ -67,7 +67,8 @@
         self.time = 0.1;
         _stopCount = 7; //默认为7
         self.lotteryNumber = 1; //默认次数为1
-        stopTime = 79 + self.stopCount; //默认多转10圈（10*8-1=79）
+        self.timeoutInterval = 10;
+        stopTime = 8 * (self.timeoutInterval + 2) - 1 + self.stopCount; //默认多转10圈+2圈（10*8-1=79）
         self.lotteryBgColor = [UIColor grayColor];
         self.failureMessage = @"网络异常，请连接网络";
         self.networkStatus = NetworkStatusUnknown; //默认未知网络
@@ -132,6 +133,13 @@
         } else { //小于3圈的时候默认三圈
             stopTime = 23 + _stopCount;
         }
+    }
+}
+
+- (void)setTimeoutInterval:(int)timeoutInterval {
+    if (_timeoutInterval != timeoutInterval) {
+        _timeoutInterval = timeoutInterval;
+        stopTime = 8 * (timeoutInterval + 2) - 1 + self.stopCount; //默认多转10圈（10*8-1=79）
     }
 }
 
@@ -301,7 +309,8 @@
     });
 
     if (currentTime > stopTime) { //抽奖结果
-        self.TimeoutFlag = (stopTime == 79 + self.stopCount) ? YES : NO;
+        NSLog(@"抽到的位置：%d， stopTime：%d", self.stopCount, stopTime);
+        self.TimeoutFlag = (stopTime == 8 * (self.timeoutInterval + 2) - 1 + self.stopCount) ? YES : NO;
         [timer invalidate];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.startBtn setEnabled:YES];
@@ -331,7 +340,7 @@
         if (!luckSelf.TimeoutFlag) {
             luckSelf.lotteryNumber = luckSelf.lotteryNumber - 1;
         }
-        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0/*延迟执行时间*/ * NSEC_PER_SEC));
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5/*延迟执行时间*/ * NSEC_PER_SEC));
         dispatch_after(delayTime, dispatch_get_main_queue(), ^{
             [luckSelf.delegate luckView:luckSelf didStopWithArrayCount:count];
         });

@@ -65,8 +65,13 @@
                               @"加速器 年卡",
                               @"永久免费卡",
                               @"大吉大利，明天再来",];
+    //超时时间
+    luckView.timeoutInterval = 5;
     //指定抽奖结果,对应数组中的元素
-    luckView.stopCount = 8;
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10/*延迟执行时间*/ * NSEC_PER_SEC));
+    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+        luckView.stopCount = 3;
+    });
 //    luckView.networkStatus = 0; //无网络
     //设置抽奖次数
     luckView.lotteryNumber = 5;
