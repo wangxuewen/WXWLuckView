@@ -125,15 +125,15 @@
 }
 
 - (void)setStopCount:(int)stopCount {
-    if(_stopCount != stopCount) {
-        _stopCount = stopCount;
-        int turns = currentTime / 8; //圈数
-        if(turns > 3) {
-            stopTime = turns * 8 - 1 + _stopCount;
-        } else { //小于3圈的时候默认三圈
-            stopTime = 23 + _stopCount;
-        }
+    _stopCount = stopCount;
+    int turns = currentTime / 8; //圈数
+    if(turns > 3) {
+        stopTime = turns * 8 - 1 + _stopCount;
+    } else { //小于3圈的时候默认三圈
+        stopTime = 23 + _stopCount;
     }
+
+    NSLog(@"计算出来的停止时间：%d, 当前时间：%d", stopTime, currentTime);
 }
 
 - (void)setTimeoutInterval:(int)timeoutInterval {
@@ -308,6 +308,7 @@
         btn.selected = YES;
     });
 
+    NSLog(@"当前时间：%d, 停止时间：%d", currentTime, stopTime);
     if (currentTime > stopTime) { //抽奖结果
         NSLog(@"抽到的位置：%d， stopTime：%d", self.stopCount, stopTime);
         self.TimeoutFlag = (stopTime == 8 * (self.timeoutInterval + 2) - 1 + self.stopCount) ? YES : NO;
