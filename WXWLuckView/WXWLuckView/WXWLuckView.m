@@ -10,6 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 #import "WXWTimer.h"
+#import "LotteryRuleViewController.h"
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
@@ -45,6 +46,8 @@
 @property (strong, nonatomic) UIButton *backButton;
 @property (strong, nonatomic) UILabel *lotteryNumberLabel;
 @property (assign, nonatomic) BOOL TimeoutFlag;
+
+@property (strong, nonatomic) UIButton *lotteryRuleButton;
 
 @end
 
@@ -93,13 +96,19 @@
         [self.backgroundImageView addSubview:self.lotteryNumberLabel];
         [self.backgroundImageView bringSubviewToFront:self.lotteryNumberLabel];
 
+        self.lotteryRuleButton.frame = CGRectMake(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 3 - 45, 100, 30);
+        self.lotteryRuleButton.userInteractionEnabled = YES;
+        [self.lotteryRuleButton addTarget:self action:@selector(touchRuleAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.lotteryRuleButton];
+        [self bringSubviewToFront:self.lotteryRuleButton];
+
         NSMutableArray *constraints = [NSMutableArray array];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeHeight multiplier:0.059 constant:0.0]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:margeLeft]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-50]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margeLeft]];
         [self.backgroundImageView addConstraints:constraints];
-
+        
         imageTimer = [WXWTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(updataImage:) userInfo:nil repeats:YES];
     }
     return self;
@@ -181,6 +190,12 @@
 - (void)setFailureMessage:(NSString *)failureMessage {
     if (![_failureMessage isEqualToString:failureMessage]) {
         _failureMessage = failureMessage;
+    }
+}
+
+- (void)setRuleText:(NSString *)ruleText {
+    if (![_ruleText isEqualToString:ruleText]) {
+        _ruleText = ruleText;
     }
 }
 
@@ -393,6 +408,17 @@
     }
 }
 
+- (void)touchRuleAction {
+    LotteryRuleViewController *lotteryRuleVC = [[LotteryRuleViewController alloc] init];
+    lotteryRuleVC.ruleString = self.ruleText;
+    
+    if ([self viewController].presentingViewController) {
+        [[self viewController] presentViewController:[[UINavigationController alloc] initWithRootViewController:lotteryRuleVC] animated:YES completion:nil];
+    } else {
+        [[self viewController].navigationController pushViewController:lotteryRuleVC animated:YES];
+    }
+}
+
 #pragma mark - Getter
 - (UIViewController *)viewController {
     for (UIView* next = [self superview]; next; next = next.superview) {
@@ -435,6 +461,24 @@
         _lotteryNumberLabel.backgroundColor = self.lotteryBgColor;
     }
     return _lotteryNumberLabel;
+}
+
+- (UIButton *)lotteryRuleButton {
+    if (!_lotteryRuleButton) {
+        _lotteryRuleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        NSMutableAttributedString *ruleStr = [[NSMutableAttributedString alloc] initWithString:@"抽奖规则"];
+        [ruleStr addAttribute:NSUnderlineStyleAttributeName
+                          value:@(NSUnderlineStyleSingle)
+                          range:(NSRange){0,[ruleStr length]}];
+        [ruleStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0f] range:NSMakeRange(0, [ruleStr length])];
+        //此时如果设置字体颜色要这样
+        [ruleStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]  range:NSMakeRange(0,[ruleStr length])];
+        
+        //设置下划线颜色...
+        [ruleStr addAttribute:NSUnderlineColorAttributeName value:[UIColor whiteColor] range:(NSRange){0,[ruleStr length]}];
+        [_lotteryRuleButton setAttributedTitle:ruleStr forState:UIControlStateNormal];
+    }
+    return _lotteryRuleButton;
 }
     
 - (void)TradePlacesWithBtn1:(UIButton *)firstBtn btn2:(UIButton *)secondBtn {
@@ -500,6 +544,7 @@
         }
     }
 }
+
 
 /*
  *判断当前是否为中文

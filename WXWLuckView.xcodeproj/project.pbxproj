@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		34CD1238D3D0A847701677E9 /* libPods-WXWLuckView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */; };
 		8409CA3D214A55970030D74E /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8409CA3C214A55970030D74E /* TestViewController.m */; };
+		845EFBFE216DC81A005FDE33 /* LotteryRuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EFBFD216DC81A005FDE33 /* LotteryRuleViewController.m */; };
 		846FA2EF213E5A7B001B2654 /* 九宫格.gif in Resources */ = {isa = PBXBuildFile; fileRef = 846FA2EE213E5A7B001B2654 /* 九宫格.gif */; };
 		84781C9E21364ECD00EF8A6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781C9D21364ECD00EF8A6A /* AppDelegate.m */; };
 		84781CA121364ECD00EF8A6A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84781CA021364ECD00EF8A6A /* ViewController.m */; };
@@ -48,6 +49,8 @@
 		1DBB82FEBA70BB1C6A011E35 /* libPods-WXWLuckView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WXWLuckView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8409CA3B214A55970030D74E /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		8409CA3C214A55970030D74E /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		845EFBFC216DC81A005FDE33 /* LotteryRuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LotteryRuleViewController.h; sourceTree = "<group>"; };
+		845EFBFD216DC81A005FDE33 /* LotteryRuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LotteryRuleViewController.m; sourceTree = "<group>"; };
 		846FA2EE213E5A7B001B2654 /* 九宫格.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "九宫格.gif"; sourceTree = "<group>"; };
 		84781C9921364ECD00EF8A6A /* WXWLuckView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXWLuckView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84781C9C21364ECD00EF8A6A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				84781CD2213650B700EF8A6A /* WXWLuckView.m */,
 				84DECDF2214F7BB000459A6A /* WXWTimer.h */,
 				84DECDF3214F7BB000459A6A /* WXWTimer.m */,
+				845EFBFC216DC81A005FDE33 /* LotteryRuleViewController.h */,
+				845EFBFD216DC81A005FDE33 /* LotteryRuleViewController.m */,
 			);
 			path = WXWLuckView;
 			sourceTree = "<group>";
@@ -364,6 +369,7 @@
 				84781CA121364ECD00EF8A6A /* ViewController.m in Sources */,
 				84781CAC21364ED000EF8A6A /* main.m in Sources */,
 				84781C9E21364ECD00EF8A6A /* AppDelegate.m in Sources */,
+				845EFBFE216DC81A005FDE33 /* LotteryRuleViewController.m in Sources */,
 				8409CA3D214A55970030D74E /* TestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,7 +541,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q7AEAPEXBN;
+				DEVELOPMENT_TEAM = K5SRAMP7C3;
 				INFOPLIST_FILE = WXWLuckView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -555,7 +561,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q7AEAPEXBN;
+				DEVELOPMENT_TEAM = K5SRAMP7C3;
 				INFOPLIST_FILE = WXWLuckView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

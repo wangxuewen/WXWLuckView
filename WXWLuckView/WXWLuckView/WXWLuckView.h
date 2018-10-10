@@ -79,5 +79,9 @@ typedef NS_ENUM(NSInteger, NetworkStatus) {
  */
 - (void)showLotteryResults:(void(^)(NSInteger remainTime))clickSure;
 
+/**
+ *抽奖规则
+ */
+@property (copy, nonatomic) NSString *ruleText;
 
 @end
