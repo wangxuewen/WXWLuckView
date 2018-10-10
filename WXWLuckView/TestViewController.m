@@ -8,6 +8,7 @@
 
 #import "TestViewController.h"
 #import "WXWLuckView.h"
+#import "LotteryRuleViewController.h"
 
 #define ScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define ScreenHeight ([UIScreen mainScreen].bounds.size.height)
@@ -128,6 +129,13 @@
 - (void)luckSelectBtn:(UIButton *)button {
     NSLog(@"点击了数组中的第%ld个元素",(long)button.tag);
     
+}
+
+/**
+ * 点击了抽奖规则
+ */
+- (void)touchLotteryRule {
+    [self.navigationController pushViewController:[LotteryRuleViewController new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

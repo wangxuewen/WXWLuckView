@@ -31,7 +31,11 @@ typedef NS_ENUM(NSInteger, NetworkStatus) {
  * 点击了奖项
  */
 - (void)luckSelectBtn:(UIButton *)button;
-    
+/**
+ * 点击了抽奖规则
+ */
+- (void)touchLotteryRule;
+
 @end
 
 @interface WXWLuckView : UIView
@@ -79,9 +83,5 @@ typedef NS_ENUM(NSInteger, NetworkStatus) {
  */
 - (void)showLotteryResults:(void(^)(NSInteger remainTime))clickSure;
 
-/**
- *抽奖规则
- */
-@property (copy, nonatomic) NSString *ruleText;
 
 @end

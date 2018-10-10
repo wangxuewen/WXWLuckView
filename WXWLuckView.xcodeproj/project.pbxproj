@@ -149,6 +149,8 @@
 				84781CA021364ECD00EF8A6A /* ViewController.m */,
 				8409CA3B214A55970030D74E /* TestViewController.h */,
 				8409CA3C214A55970030D74E /* TestViewController.m */,
+				845EFBFC216DC81A005FDE33 /* LotteryRuleViewController.h */,
+				845EFBFD216DC81A005FDE33 /* LotteryRuleViewController.m */,
 				84781CA221364ECD00EF8A6A /* Main.storyboard */,
 				84781CA521364ED000EF8A6A /* Assets.xcassets */,
 				84781CA721364ED000EF8A6A /* LaunchScreen.storyboard */,
@@ -184,8 +186,6 @@
 				84781CD2213650B700EF8A6A /* WXWLuckView.m */,
 				84DECDF2214F7BB000459A6A /* WXWTimer.h */,
 				84DECDF3214F7BB000459A6A /* WXWTimer.m */,
-				845EFBFC216DC81A005FDE33 /* LotteryRuleViewController.h */,
-				845EFBFD216DC81A005FDE33 /* LotteryRuleViewController.m */,
 			);
 			path = WXWLuckView;
 			sourceTree = "<group>";

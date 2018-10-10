@@ -10,7 +10,6 @@
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 #import "WXWTimer.h"
-#import "LotteryRuleViewController.h"
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
@@ -105,7 +104,7 @@
         NSMutableArray *constraints = [NSMutableArray array];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeHeight multiplier:0.059 constant:0.0]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:margeLeft]];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-50]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-55]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margeLeft]];
         [self.backgroundImageView addConstraints:constraints];
         
@@ -193,11 +192,6 @@
     }
 }
 
-- (void)setRuleText:(NSString *)ruleText {
-    if (![_ruleText isEqualToString:ruleText]) {
-        _ruleText = ruleText;
-    }
-}
 
 - (void)initLuckViewSubViews {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -409,13 +403,8 @@
 }
 
 - (void)touchRuleAction {
-    LotteryRuleViewController *lotteryRuleVC = [[LotteryRuleViewController alloc] init];
-    lotteryRuleVC.ruleString = self.ruleText;
-    
-    if ([self viewController].presentingViewController) {
-        [[self viewController] presentViewController:[[UINavigationController alloc] initWithRootViewController:lotteryRuleVC] animated:YES completion:nil];
-    } else {
-        [[self viewController].navigationController pushViewController:lotteryRuleVC animated:YES];
+    if ([self.delegate respondsToSelector:@selector(touchLotteryRule)]) {
+        [self.delegate touchLotteryRule];
     }
 }
 
