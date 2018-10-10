@@ -17,6 +17,12 @@
 #define kDevice_Is_iPhoneX [UIScreen mainScreen].bounds.size.height == 812
 #define nav_height (kDevice_Is_iPhoneX?88:64)
 
+#define iPhone4  [UIScreen mainScreen].bounds.size.height == 480
+#define iPhone5  [UIScreen mainScreen].bounds.size.height == 568
+#define iPhone6  [UIScreen mainScreen].bounds.size.height == 667
+#define iPhone6Plus  [UIScreen mainScreen].bounds.size.height == 736
+#define iPhoneX  [UIScreen mainScreen].bounds.size.height == 812
+
 @interface WXWLuckView () {
     NSTimer *imageTimer;
     NSTimer *startTimer;
@@ -95,16 +101,31 @@
         [self.backgroundImageView addSubview:self.lotteryNumberLabel];
         [self.backgroundImageView bringSubviewToFront:self.lotteryNumberLabel];
 
-        self.lotteryRuleButton.frame = CGRectMake(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 3 - 45, 100, 30);
+        NSInteger lotteryRuleBottomMargin = 44;
+        if (iPhone5) {
+            lotteryRuleBottomMargin = 35;
+        } else if (iPhone6) {
+            lotteryRuleBottomMargin = 38;
+        }else if (iPhone6Plus) {
+            lotteryRuleBottomMargin = 41;
+        }
+        
+        self.lotteryRuleButton.frame = CGRectMake(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 3 - lotteryRuleBottomMargin, 100, 30);
         self.lotteryRuleButton.userInteractionEnabled = YES;
         [self.lotteryRuleButton addTarget:self action:@selector(touchRuleAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.lotteryRuleButton];
         [self bringSubviewToFront:self.lotteryRuleButton];
 
+        NSInteger lotteryNumberBottomMargin = 55;
+        if (iPhone5) {
+            lotteryNumberBottomMargin = 50;
+        } else if (iPhone6Plus) {
+            lotteryNumberBottomMargin = 60;
+        }
         NSMutableArray *constraints = [NSMutableArray array];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeHeight multiplier:0.059 constant:0.0]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:margeLeft]];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-55]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-lotteryNumberBottomMargin]];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:self.lotteryNumberLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.borderImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margeLeft]];
         [self.backgroundImageView addConstraints:constraints];
         
