@@ -36,7 +36,6 @@
     
     [self.view addSubview:self.ruleLabel];
     NSString *ruleText = self.ruleString ? : @"1.本次活动用户每天登录后既获得一次抽奖机会；\n2.A+可以根据活动的实际情况对活动规则进行变动和调整，解释权归A+所有；\n3.此活动与苹果公司无关。";
-//    self.ruleLabel.text = ruleText;
     
     NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:ruleText];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
@@ -45,9 +44,6 @@
     [attributeString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, ruleText.length)]; NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
     CGRect rect = [attributeString boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT) options:options context:nil];
     
-    
-//    CGSize maximumSize = CGSizeMake(SCREEN_WIDTH - 30, 9999);
-//    CGRect rect = [ruleText boundingRectWithSize:maximumSize options:NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.]} context:nil];
     self.ruleLabel.frame = CGRectMake(15, nav_height + 15, SCREEN_WIDTH - 30, rect.size.height);
     self.ruleLabel.attributedText = attributeString;
     
@@ -69,7 +65,6 @@
         _ruleLabel = [[UILabel alloc] init];
         _ruleLabel.textColor = [UIColor grayColor];
         _ruleLabel.numberOfLines = 0;
-//        _ruleLabel.font = [UIFont systemFontOfSize:15];
         
     }
     return _ruleLabel;

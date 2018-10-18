@@ -161,6 +161,9 @@
     } else { //小于3圈的时候默认三圈
         stopTime = 23 + _stopCount;
     }
+    if (stopTime < currentTime) { //以为停止时间计算存在一圈的误差，当停止时间小于当前时间时，多转一圈
+        stopTime += 8;
+    }
 
     NSLog(@"计算出来的停止时间：%d, 当前时间：%d", stopTime, currentTime);
 }
@@ -371,7 +374,7 @@
         if (!luckSelf.TimeoutFlag) {
             luckSelf.lotteryNumber = luckSelf.lotteryNumber - 1;
         }
-        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5/*延迟执行时间*/ * NSEC_PER_SEC));
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25/*延迟执行时间*/ * NSEC_PER_SEC));
         dispatch_after(delayTime, dispatch_get_main_queue(), ^{
             [luckSelf.delegate luckView:luckSelf didStopWithArrayCount:count];
         });
