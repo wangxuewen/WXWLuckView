@@ -85,8 +85,8 @@
     });
 //    luckView.networkStatus = 0; //无网络
     //设置抽奖次数
-    luckView.lotteryNumber = 5;
-    //设置代理
+//    luckView.lotteryNumber = 1;
+    //设置代理1
     luckView.delegate = self;
     [self.view addSubview:luckView];
 }
@@ -113,8 +113,12 @@
     __weak typeof(self)weakSelf = self;
     [luck showLotteryResults:^(NSInteger remainTime) {
         NSLog(@"点击确认");
-        if (remainTime == 0) { //次数用完啦，少年赶快去充值吧
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+        if (remainTime <= 0) { //次数用完啦，少年赶快去充值吧
+            if (weakSelf.presentingViewController) {
+                [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            } else {
+                [weakSelf.navigationController popViewControllerAnimated:NO];
+            }
         }
     }];
     

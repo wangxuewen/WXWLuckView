@@ -344,10 +344,9 @@
     NSLog(@"当前时间：%d, 停止时间：%d", currentTime, stopTime);
     if (currentTime > stopTime) { //抽奖结果
         NSLog(@"抽到的位置：%d， stopTime：%d", self.stopCount, stopTime);
-        self.TimeoutFlag = (stopTime == 8 * (self.timeoutInterval + 2) - 1 + self.stopCount) ? YES : NO;
+        self.TimeoutFlag = (stopTime == 8 * (self.timeoutInterval + 2) + 8 - 1 + self.stopCount) ? YES : NO; // + 8是因为停止时间有一圈的误差，和上面多转一圈的情况一样
         [timer invalidate];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.startBtn setEnabled:YES];
             [self.backButton setEnabled:YES];
         });
         result = currentTime%self.btnArray.count;
@@ -407,6 +406,8 @@
     __weak typeof(self) wSelf = self;
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:sureTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [wAlert dismissViewControllerAnimated:NO completion:nil];
+        [self.startBtn setEnabled:YES]; //点击确定再打开抽奖按钮的交互
+        
         if (clickSure) {
             clickSure(wSelf.lotteryNumber);
         }
