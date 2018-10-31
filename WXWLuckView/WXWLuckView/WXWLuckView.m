@@ -317,8 +317,8 @@
             currentTime = result;
             self.time = 0.1;
             [self.startBtn setEnabled:NO];
-            [self.backButton setEnabled:NO];
-            [self setUserInteractionEnabled:NO];
+//            [self.backButton setEnabled:NO];
+//            [self setUserInteractionEnabled:NO];
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 self->startTimer = [NSTimer scheduledTimerWithTimeInterval:self.time target:self selector:@selector(start:) userInfo:nil repeats:YES];
@@ -444,6 +444,7 @@
     } else {
         [[self viewController].navigationController popViewControllerAnimated:NO];
     }
+    [self dismissNSTimer];
 }
 
 - (void)touchRuleAction {
@@ -610,6 +611,13 @@
     return NO;
 }
 
+- (void)dismissNSTimer {
+    [imageTimer invalidate];
+    imageTimer = nil;
+    [startTimer invalidate];
+    startTimer = nil;
+}
+    
     
 - (void)dealloc {
     [imageTimer invalidate];

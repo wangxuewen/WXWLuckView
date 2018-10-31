@@ -83,5 +83,10 @@ typedef NS_ENUM(NSInteger, NetworkStatus) {
  */
 - (void)showLotteryResults:(void(^)(NSInteger remainTime))clickSure;
 
+/**
+ *视图消失时，清除NSTimer,提前返回时一定要调用
+ */
+- (void)dismissNSTimer;
+    
 
 @end

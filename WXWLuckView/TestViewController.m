@@ -47,6 +47,8 @@
 
 - (void)settingLuckView {
     WXWLuckView *luckView = [[WXWLuckView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    
+    luckView.tag = 666;
     luckView.center = self.view.center;
     
     //网络图片地址
@@ -114,6 +116,8 @@
     [luck showLotteryResults:^(NSInteger remainTime) {
         NSLog(@"点击确认");
         if (remainTime <= 0) { //次数用完啦，少年赶快去充值吧
+            WXWLuckView *luckView = [self.view viewWithTag:666];
+            [luckView dismissNSTimer];
             if (weakSelf.presentingViewController) {
                 [weakSelf dismissViewControllerAnimated:NO completion:nil];
             } else {
@@ -147,6 +151,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    NSLog(@"TestViewController dealloc 走没走");
+}
+    
 /*
 #pragma mark - Navigation
 
