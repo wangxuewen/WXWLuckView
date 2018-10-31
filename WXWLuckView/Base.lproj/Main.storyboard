@@ -24,7 +24,7 @@
                                     <color key="titleColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ReR-yX-RpR" kind="show" animates="NO" id="on8-5A-qmp"/>
+                                    <action selector="testAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FdH-KA-We2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -66,6 +66,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="z8p-5w-3Lt"/>
                     </view>
+                    <navigationItem key="navigationItem" id="eYP-RJ-uAM"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4v-WX-NIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

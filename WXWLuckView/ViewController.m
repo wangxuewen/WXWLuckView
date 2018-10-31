@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "TestViewController.h"
 
 @interface ViewController ()
 
@@ -21,7 +22,9 @@
 }
 
 
-
+- (IBAction)testAction:(id)sender {
+    [self.navigationController pushViewController:[TestViewController new] animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

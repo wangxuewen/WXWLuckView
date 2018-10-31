@@ -312,18 +312,23 @@
         return;
     }
     if (btn.tag == 10) {
-        //点击开始抽奖
-        currentTime = result;
-        self.time = 0.1;
-        [self.startBtn setEnabled:NO];
-        [self.backButton setEnabled:NO];
-        
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            self->startTimer = [NSTimer scheduledTimerWithTimeInterval:self.time target:self selector:@selector(start:) userInfo:nil repeats:YES];
-            [[NSRunLoop currentRunLoop] run];
-        });
-        if ([self.delegate respondsToSelector:@selector(startDrawLottery)]) {
-            [self.delegate startDrawLottery];
+        if (self.lotteryNumber > 0) { //有抽奖次数
+            //点击开始抽奖
+            currentTime = result;
+            self.time = 0.1;
+            [self.startBtn setEnabled:NO];
+            [self.backButton setEnabled:NO];
+            [self setUserInteractionEnabled:NO];
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                self->startTimer = [NSTimer scheduledTimerWithTimeInterval:self.time target:self selector:@selector(start:) userInfo:nil repeats:YES];
+                [[NSRunLoop currentRunLoop] run];
+            });
+            if ([self.delegate respondsToSelector:@selector(startDrawLottery)]) {
+                [self.delegate startDrawLottery];
+            }
+        } else { //已经无抽奖次数
+            [self noLotteryTips];
         }
     } else {
         if ([self.delegate respondsToSelector:@selector(luckSelectBtn:)]) {
@@ -348,6 +353,7 @@
         [timer invalidate];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.backButton setEnabled:YES];
+            [self setUserInteractionEnabled:YES];
         });
         result = currentTime%self.btnArray.count;
         [self stopWithCount:currentTime%self.btnArray.count];
@@ -380,7 +386,6 @@
     }
 }
 
-
 - (void)showLotteryResults:(void(^)(NSInteger remainTime))clickSure {
     NSString *title;
     NSString *message;
@@ -411,6 +416,20 @@
         if (clickSure) {
             clickSure(wSelf.lotteryNumber);
         }
+    }];
+    
+    [alert addAction:sureAction];
+    
+    [[self viewController] presentViewController:alert animated:YES completion:nil];
+}
+    
+- (void)noLotteryTips {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您今天抽奖次数已用完，请明天再来！" preferredStyle:UIAlertControllerStyleAlert];
+    __weak typeof(alert) wAlert = alert;
+    __weak typeof(self) wSelf = self;
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [wAlert dismissViewControllerAnimated:NO completion:nil];
+        [wSelf backAction];
     }];
     
     [alert addAction:sureAction];
