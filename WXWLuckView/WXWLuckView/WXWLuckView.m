@@ -399,9 +399,9 @@
     } else {
         title = @"中奖了";
         if (self.lotteryArray) {
-            message = [NSString stringWithFormat:@"恭喜你获得了:“%@”", _lotteryArray[_stopCount]];
+            message = [NSString stringWithFormat:@"恭喜您获得%@", _lotteryArray[_stopCount]];
         } else {
-            message = [NSString stringWithFormat:@"恭喜你获得了:“%@等奖”", [self translation:_stopCount]];
+            message = [NSString stringWithFormat:@"恭喜您获得了:“%@等奖”", [self translation:_stopCount]];
         }
     }
     sureTitle = @"确定";
